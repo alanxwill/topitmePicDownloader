@@ -161,8 +161,9 @@ def originalAlbum():
                 pictureContentedUrl = urlLeft + pictureId + urlRight
                 pictureUrl = getJson(pictureContentedUrl)['item'][0]['icon']['url']
                 pictureSave(pictureUrl.split('/')[-1],pictureUrl)
-        os.chdir(thirdPath)
-    os.chdir(secondPath)
+            os.chdir(thirdPath)
+        os.chdir(secondPath)
+    os.chdir(firstPath)
     
 def favoriteAlbum():
     idPage = 'http://api.topitme.com/?appVersion=508&device=ios&build=4.3.13&ipad=NO&ch=AppStore&openudid=8760362a232719eb2c1bd3d745bcc1e20bf310ad&screen=1242x2208&id=' + inputString + '&method=user.get&offset=0&limit=30'
@@ -215,10 +216,12 @@ def favoriteAlbum():
                 pictureContentedUrl = urlLeft + pictureId + urlRight
                 pictureUrl = getJson(pictureContentedUrl)['item'][0]['icon']['url']
                 pictureSave(pictureUrl.split('/')[-1],pictureUrl)
-        os.chdir(thirdPath)
-    os.chdir(secondPath)
-
+            os.chdir(thirdPath)
+        os.chdir(secondPath)
+    os.chdir(firstPath)
+    
 #**********************************************************************************#
+
 def main(): 
     idSearch()
 
