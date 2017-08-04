@@ -18,9 +18,9 @@ defaultPath = os.getcwd()
 def downloadInfo(num):
     presentPath = os.getcwd()
     if len(presentPath.split('/')) - len(firstPath.split('/')) == 1:
-        print('正在下载'+presentPath.split('/')[-1]+',共'+str(num)+'张')
+        print('正在下载'+presentPath.split('/')[-1]+'共'+str(num)+'张')
     elif len(presentPath.split('/')) - len(firstPath.split('/')) == 2:
-        print('正在下载'+presentPath.split('/')[-2]+'中',presentPath.split('/')[-1]+' 共'+str(num)+'张')
+        print('正在下载'+presentPath.split('/')[-2]+'中的',presentPath.split('/')[-1]+' 共'+str(num)+'张')
     else:
         pass
         
