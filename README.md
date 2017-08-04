@@ -1,4 +1,3 @@
 # picGetTest
 获取优美图app指定用户ID收藏的所有的图片到本地
-## 已添加用户ID搜索模块
-## 参数传递还没有做
+# 功能完全版searchToGetPicture.ipynb已完成
