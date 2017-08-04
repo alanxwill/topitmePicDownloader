@@ -32,7 +32,7 @@ payload['type'] = 'user'
 payload['method'] = 'search'
 
 def idSearch(): 
-    idString = input("请输入你要搜索的ID:")
+    idString = input("请输入你要搜索的用户名:")
     payload['query'] = idString
 
     global idList
@@ -64,9 +64,12 @@ def favoritePicture():
     urlParts = idPage.split('&')
     urlLeft = 'http://api.topitme.com/?appVersion=508&device=ios&build=4.3.13&ipad=NO&ch=AppStore&openudid=8760362a232719eb2c1bd3d745bcc1e20bf310ad&screen=1242x2208&id='
     urlRight = '&method=item.getIcon&type=o'
-
-    os.makedirs('喜欢的图片')
-    os.chdir('喜欢的图片')
+    
+    if os.path.exists('喜欢的图片'):
+        os.chdir('喜欢的图片')
+    else:
+        os.mkdir('喜欢的图片')
+        os.chdir('喜欢的图片')
 
     for i in range(ceil(favoritePictureNum / 30)):
         urlParts[-2] = 'offset=' + str(i * 30)
@@ -92,9 +95,11 @@ def originalPicture():
     urlLeft = 'http://api.topitme.com/?appVersion=508&device=ios&build=4.3.13&ipad=NO&ch=AppStore&openudid=8760362a232719eb2c1bd3d745bcc1e20bf310ad&screen=1242x2208&id='
     urlRight = '&method=item.getIcon&type=o'
 
-
-    os.makedirs('原创图片')
-    os.chdir('原创图片')
+    if os.path.exists(idJson['info']['category'][2]['name']):
+        os.chdir(idJson['info']['category'][2]['name'])
+    else:
+        os.makedirs(idJson['info']['category'][2]['name'])
+        os.chdir(idJson['info']['category'][2]['name'])
 
     for i in range(ceil(favoritePictureNum / 30)):
         urlParts[-2] = 'offset=' + str(i * 30)
@@ -129,8 +134,11 @@ def originalAlbum():
     urlLeft = 'http://api.topitme.com/?appVersion=508&device=ios&build=4.3.13&ipad=YES&ch=AppStore&openudid=d8793876f280c8d5808d0faaf0dc8b8d96d679f4&screen=1536x2048&id='
     urlRight = '&method=item.getIcon&type=o'
 
-    os.makedirs('原创的精选集')
-    os.chdir('原创的精选集')
+    if os.path.exists(idJson['info']['category'][0]['name']):
+        os.chdir(idJson['info']['category'][0]['name'])
+    else:
+        os.makedirs(idJson['info']['category'][0]['name'])
+        os.chdir(idJson['info']['category'][0]['name'])
     secondPath = os.getcwd()
 
     for i in range(ceil(int(originalAlbumNum)/30)):
@@ -151,8 +159,11 @@ def originalAlbum():
             fnum += 1
 
     for i in range(len(originalAlbumItemUrlList)):
-        os.makedirs(originalAlbumName[i])
-        os.chdir(originalAlbumName[i])
+        if os.path.exists(originalAlbumName[i]):
+            os.chdir(originalAlbumName[i])
+        else:
+            os.makedirs(originalAlbumName[i])
+            os.chdir(originalAlbumName[i])
         thirdPath = os.getcwd()
         for j in originalAlbumItemUrlList[i]:
             pictureJsonLoad = getJson(j)
@@ -184,8 +195,11 @@ def favoriteAlbum():
     urlLeft = 'http://api.topitme.com/?appVersion=508&device=ios&build=4.3.13&ipad=YES&ch=AppStore&openudid=d8793876f280c8d5808d0faaf0dc8b8d96d679f4&screen=1536x2048&id='
     urlRight = '&method=item.getIcon&type=o'
 
-    os.makedirs('喜欢的精选集')
-    os.chdir('喜欢的精选集')
+    if os.path.exists(idJson['info']['category'][4]['name']):
+        os.chdir(idJson['info']['category'][4]['name'])
+    else:
+        os.makedirs(idJson['info']['category'][4]['name'])
+        os.chdir(idJson['info']['category'][4]['name'])
     secondPath = os.getcwd()
 
     for i in range(ceil(int(originalAlbumNum)/30)):
@@ -206,8 +220,11 @@ def favoriteAlbum():
             fnum += 1
 
     for i in range(len(originalAlbumItemUrlList)):
-        os.makedirs(originalAlbumName[i])
-        os.chdir(originalAlbumName[i])
+        if os.path.exists(originalAlbumName[i]):
+            os.chdir(originalAlbumName[i])
+        else:
+            os.makedirs(originalAlbumName[i])
+            os.chdir(originalAlbumName[i])
         thirdPath = os.getcwd()
         for j in originalAlbumItemUrlList[i]:
             pictureJsonLoad = getJson(j)
@@ -241,8 +258,12 @@ def main():
 
     print('你要搜索的用户是',uname.format(),'\n','正在下载。。。')
     
-    os.makedirs(uname.format()+'的优美图')
-    os.chdir(uname.format()+'的优美图')
+    if os.path.exists(uname.format()+'的优美图'):
+        os.chdir(uname.format()+'的优美图')
+    else:
+        os.mkdir(uname.format()+'的优美图')
+        os.chdir(uname.format()+'的优美图')
+        
     global firstPath
     firstPath = os.getcwd()
     
