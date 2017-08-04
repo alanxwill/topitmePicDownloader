@@ -237,16 +237,18 @@ def main():
     uname = nameList[int(uidOrder) - 1]
 
     print('你要搜索的用户是',uname.format(),'\n','正在下载。。。')
-    global firstPath
-    firstPath = os.getcwd()
+    
     os.makedirs(uname.format()+'的优美图')
     os.chdir(uname.format()+'的优美图')
+    global firstPath
+    firstPath = os.getcwd()
     
     favoritePicture()
     favoriteAlbum()
     originalPicture()
     originalAlbum()
     print(' 下载完成 ')
+    os.chdir(defaultPath)
     
 if __name__ == '__main__':   
     main() 
