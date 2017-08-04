@@ -184,7 +184,7 @@ def originalAlbum():
             
         thirdPath = os.getcwd()
         
-        if len(originalAlbumName[i]) > 0:
+        if len(originalAlbumItemUrlList[i]) > 0:
             num = getJson(originalAlbumItemUrlList[i][0])['info']['num']
             
             downloadInfo(num)
@@ -258,7 +258,7 @@ def favoriteAlbum():
             
         thirdPath = os.getcwd()
         
-        if len(originalAlbumName[i]) > 0:
+        if len(originalAlbumItemUrlList[i]) > 0:
             
             num = getJson(originalAlbumItemUrlList[i][0])['info']['num']  
 
@@ -320,3 +320,4 @@ def main():
     
 if __name__ == '__main__':   
     main() 
+
