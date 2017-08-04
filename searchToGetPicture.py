@@ -175,16 +175,17 @@ def originalAlbum():
             fnum += 1
 
     for i in range(len(originalAlbumItemUrlList)):
+        
         if os.path.exists(originalAlbumName[i]):
             os.chdir(originalAlbumName[i])
         else:
             os.makedirs(originalAlbumName[i])
             os.chdir(originalAlbumName[i])
+            
         thirdPath = os.getcwd()
         
-        num = getJson(originalAlbumItemUrlList[i][0])['info']['num']
-        
-        if num > 0:
+        if len(originalAlbumName[i]) > 0:
+            num = getJson(originalAlbumItemUrlList[i][0])['info']['num']
             
             downloadInfo(num)
 
@@ -197,6 +198,7 @@ def originalAlbum():
                     pictureSave(pictureUrl.split('/')[-1],pictureUrl)
                 os.chdir(thirdPath)
         else:
+            num = 0
             downloadInfo(num)
             os.chdir(thirdPath)
             
@@ -247,23 +249,23 @@ def favoriteAlbum():
             fnum += 1
 
     for i in range(len(originalAlbumItemUrlList)):
+        
         if os.path.exists(originalAlbumName[i]):
             os.chdir(originalAlbumName[i])
         else:
             os.makedirs(originalAlbumName[i])
             os.chdir(originalAlbumName[i])
             
-        num = getJson(originalAlbumItemUrlList[i][0])['info']['num']  
         thirdPath = os.getcwd()
         
-        if num > 0:
+        if len(originalAlbumName[i]) > 0:
             
+            num = getJson(originalAlbumItemUrlList[i][0])['info']['num']  
+
             downloadInfo(num)
 
             for j in originalAlbumItemUrlList[i]:
                 pictureJsonLoad = getJson(j)
-
-
                 for k in pictureJsonLoad['item']:
                     pictureId = k['id']
                     pictureContentedUrl = urlLeft + pictureId + urlRight
@@ -271,6 +273,7 @@ def favoriteAlbum():
                     pictureSave(pictureUrl.split('/')[-1],pictureUrl)
                 os.chdir(thirdPath)
         else:
+            num = 0
             downloadInfo(num)
             os.chdir(thirdPath)
             
@@ -307,8 +310,9 @@ def main():
     global firstPath
     firstPath = os.getcwd()
     
-    favoritePicture()
     favoriteAlbum()
+    favoritePicture()
+    
     originalPicture()
     originalAlbum()
     print(' 下载完成 ')
@@ -316,5 +320,3 @@ def main():
     
 if __name__ == '__main__':   
     main() 
-
-
