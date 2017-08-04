@@ -15,6 +15,15 @@ from math import ceil
 
 defaultPath = os.getcwd()
 
+def downloadInfo(num):
+    presentPath = os.getcwd()
+    if len(presentPath.split('/')) - len(firstPath.split('/')) == 1:
+        print('正在下载'+presentPath.split('/')[-1]+',共'+str(num)+'张')
+    elif len(presentPath.split('/')) - len(firstPath.split('/')) == 2:
+        print('正在下载'+presentPath.split('/')[-2]+'中',presentPath.split('/')[-1]+' 共'+str(num)+'张')
+    else:
+        pass
+        
 def getJson(url):
     getJsonRequests = requests.get(url)
     getJsonLoads = json.loads(getJsonRequests.text)
@@ -70,7 +79,9 @@ def favoritePicture():
     else:
         os.mkdir('喜欢的图片')
         os.chdir('喜欢的图片')
-
+        
+    downloadInfo(favoritePictureNum)
+    
     for i in range(ceil(favoritePictureNum / 30)):
         urlParts[-2] = 'offset=' + str(i * 30)
         favoritePictureUrlList.append('&'.join(urlParts))
@@ -100,7 +111,9 @@ def originalPicture():
     else:
         os.makedirs(idJson['info']['category'][2]['name'])
         os.chdir(idJson['info']['category'][2]['name'])
-
+        
+    downloadInfo(favoritePictureNum)
+    
     for i in range(ceil(favoritePictureNum / 30)):
         urlParts[-2] = 'offset=' + str(i * 30)
         favoritePictureUrlList.append('&'.join(urlParts))
@@ -165,6 +178,10 @@ def originalAlbum():
             os.makedirs(originalAlbumName[i])
             os.chdir(originalAlbumName[i])
         thirdPath = os.getcwd()
+        
+        num = getJson(originalAlbumItemUrlList[i][0])['info']['num']
+        downloadInfo(num)
+        
         for j in originalAlbumItemUrlList[i]:
             pictureJsonLoad = getJson(j)
             for k in pictureJsonLoad['item']:
@@ -182,7 +199,7 @@ def favoriteAlbum():
 
     uid = idJson['info']['sbj']['id']
     originalAlbumUrlLeft = 'http://api.topitme.com/?appVersion=508&device=ios&build=4.3.13&ipad=YES&ch=AppStore&openudid=d8793876f280c8d5808d0faaf0dc8b8d96d679f4&screen=1536x2048&id='
-    originalAlbumUrlMiddle = '&data_ref=id%253D3451964%2526method%253Duser.get%2526offset%253D0%2526limit%253D30&type=0&offset='
+    originalAlbumUrlMiddle = '&data_ref=id%253D3451964%2526method%253Duser.get%2526offset%253D0%2526limit%253D30&type=1&offset='
     originalAlbumUrlRight = '&limit=30'
 
     originalAlbumUrl = idJson['info']['category'][4]['more']['next']
@@ -226,8 +243,14 @@ def favoriteAlbum():
             os.makedirs(originalAlbumName[i])
             os.chdir(originalAlbumName[i])
         thirdPath = os.getcwd()
+        
+        num = getJson(originalAlbumItemUrlList[i][0])['info']['num']
+        downloadInfo(num)
+        
         for j in originalAlbumItemUrlList[i]:
             pictureJsonLoad = getJson(j)
+            
+            
             for k in pictureJsonLoad['item']:
                 pictureId = k['id']
                 pictureContentedUrl = urlLeft + pictureId + urlRight
