@@ -1,4 +1,4 @@
 # picGetTest
 获取优美图app指定用户ID收藏的所有的图片到本地
 # 功能完全版searchToGetPicture.ipynb已完成
-# 现已能实现搜索用户昵称下载其所有的图片的功能，未做requests.status_codes检查，有的用户会在下载过程中报错
+# 现已能实现搜索用户昵称下载其所有的图片的功能

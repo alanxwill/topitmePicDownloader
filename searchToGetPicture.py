@@ -30,9 +30,12 @@ def getJson(url):
     return getJsonLoads
 
 def pictureSave(name,url):
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36','Cookie': 'AspxAutoDetectCookieSupport=1',}
-    with open(name.format(),'wb') as file:
-        file.write(requests.get(url,headers = headers).content)
+    if os.path.isfile(name.format()):
+        pass
+    else:
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36','Cookie': 'AspxAutoDetectCookieSupport=1',}
+        with open(name.format(),'wb') as file:
+            file.write(requests.get(url,headers = headers).content)
 
 domain = 'http://api.topitme.com/'
 payload = {'appVersion':'508','device':'ios','build':'4.3.13','ipad':'NO','ch':'AppStore','openudid':'cf6d8df6bff06078e4caf824ce190823dad86441','screen':'1242x2208','offset':'0','limit':'30','data_ref':'id%253D3451964%2526method%253Duser.get%2526offset%253D0%2526limit%253D30'}
@@ -180,16 +183,23 @@ def originalAlbum():
         thirdPath = os.getcwd()
         
         num = getJson(originalAlbumItemUrlList[i][0])['info']['num']
-        downloadInfo(num)
         
-        for j in originalAlbumItemUrlList[i]:
-            pictureJsonLoad = getJson(j)
-            for k in pictureJsonLoad['item']:
-                pictureId = k['id']
-                pictureContentedUrl = urlLeft + pictureId + urlRight
-                pictureUrl = getJson(pictureContentedUrl)['item'][0]['icon']['url']
-                pictureSave(pictureUrl.split('/')[-1],pictureUrl)
+        if num > 0:
+            
+            downloadInfo(num)
+
+            for j in originalAlbumItemUrlList[i]:
+                pictureJsonLoad = getJson(j)
+                for k in pictureJsonLoad['item']:
+                    pictureId = k['id']
+                    pictureContentedUrl = urlLeft + pictureId + urlRight
+                    pictureUrl = getJson(pictureContentedUrl)['item'][0]['icon']['url']
+                    pictureSave(pictureUrl.split('/')[-1],pictureUrl)
+                os.chdir(thirdPath)
+        else:
+            downloadInfo(num)
             os.chdir(thirdPath)
+            
         os.chdir(secondPath)
     os.chdir(firstPath)
     
@@ -242,21 +252,28 @@ def favoriteAlbum():
         else:
             os.makedirs(originalAlbumName[i])
             os.chdir(originalAlbumName[i])
+            
+        num = getJson(originalAlbumItemUrlList[i][0])['info']['num']  
         thirdPath = os.getcwd()
         
-        num = getJson(originalAlbumItemUrlList[i][0])['info']['num']
-        downloadInfo(num)
-        
-        for j in originalAlbumItemUrlList[i]:
-            pictureJsonLoad = getJson(j)
+        if num > 0:
             
-            
-            for k in pictureJsonLoad['item']:
-                pictureId = k['id']
-                pictureContentedUrl = urlLeft + pictureId + urlRight
-                pictureUrl = getJson(pictureContentedUrl)['item'][0]['icon']['url']
-                pictureSave(pictureUrl.split('/')[-1],pictureUrl)
+            downloadInfo(num)
+
+            for j in originalAlbumItemUrlList[i]:
+                pictureJsonLoad = getJson(j)
+
+
+                for k in pictureJsonLoad['item']:
+                    pictureId = k['id']
+                    pictureContentedUrl = urlLeft + pictureId + urlRight
+                    pictureUrl = getJson(pictureContentedUrl)['item'][0]['icon']['url']
+                    pictureSave(pictureUrl.split('/')[-1],pictureUrl)
+                os.chdir(thirdPath)
+        else:
+            downloadInfo(num)
             os.chdir(thirdPath)
+            
         os.chdir(secondPath)
     os.chdir(firstPath)
     
@@ -299,4 +316,5 @@ def main():
     
 if __name__ == '__main__':   
     main() 
+
 
