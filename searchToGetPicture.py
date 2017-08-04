@@ -153,6 +153,7 @@ def originalAlbum():
     for i in range(len(originalAlbumItemUrlList)):
         os.makedirs(originalAlbumName[i])
         os.chdir(originalAlbumName[i])
+        thirdPath = os.getcwd()
         for j in originalAlbumItemUrlList[i]:
             pictureJsonLoad = getJson(j)
             for k in pictureJsonLoad['item']:
@@ -160,8 +161,8 @@ def originalAlbum():
                 pictureContentedUrl = urlLeft + pictureId + urlRight
                 pictureUrl = getJson(pictureContentedUrl)['item'][0]['icon']['url']
                 pictureSave(pictureUrl.split('/')[-1],pictureUrl)
-        os.chdir(secondPath)
-    os.chdir(firstPath)
+        os.chdir(thirdPath)
+    os.chdir(secondPath)
     
 def favoriteAlbum():
     idPage = 'http://api.topitme.com/?appVersion=508&device=ios&build=4.3.13&ipad=NO&ch=AppStore&openudid=8760362a232719eb2c1bd3d745bcc1e20bf310ad&screen=1242x2208&id=' + inputString + '&method=user.get&offset=0&limit=30'
@@ -206,6 +207,7 @@ def favoriteAlbum():
     for i in range(len(originalAlbumItemUrlList)):
         os.makedirs(originalAlbumName[i])
         os.chdir(originalAlbumName[i])
+        thirdPath = os.getcwd()
         for j in originalAlbumItemUrlList[i]:
             pictureJsonLoad = getJson(j)
             for k in pictureJsonLoad['item']:
@@ -213,8 +215,8 @@ def favoriteAlbum():
                 pictureContentedUrl = urlLeft + pictureId + urlRight
                 pictureUrl = getJson(pictureContentedUrl)['item'][0]['icon']['url']
                 pictureSave(pictureUrl.split('/')[-1],pictureUrl)
-        os.chdir(secondPath)
-    os.chdir(firstPath)
+        os.chdir(thirdPath)
+    os.chdir(secondPath)
 
 #**********************************************************************************#
 def main(): 
@@ -244,7 +246,7 @@ def main():
     favoriteAlbum()
     originalPicture()
     originalAlbum()
-    print('\n下载完成')
+    print(' 下载完成 ')
     
 if __name__ == '__main__':   
     main() 
